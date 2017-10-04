@@ -6,6 +6,11 @@ const serve = require('koa-static');
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser')();
 
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+const { App } = require('source/client/components');
+const html = require('source/client/index.html');
+
 const getCardsController = require('./controllers/cards/get-cards');
 const createCardController = require('./controllers/cards/create');
 const deleteCardController = require('./controllers/cards/delete');
@@ -24,8 +29,10 @@ const app = new Koa();
 router.param('id', (id, ctx, next) => next());
 
 
+
 router.get('/', (ctx) => {
-	ctx.body = fs.readFileSync('./public/index.html', 'utf8');
+	ctx.body = html.replace('<div id="root"></div>',
+		`<div id="root">${ReactDOMServer.renderToString(<App />)}</div>`);
 });
 
 router.get('/cards/', getCardsController);

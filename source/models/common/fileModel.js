@@ -9,7 +9,7 @@ const ApplicationError = require('libs/application-error');
 class FileModel extends Model {
 	constructor(sourceFileName) {
 		super();
-		this._dataSourceFile = path.join(__dirname, '..', '..', 'data', sourceFileName);
+		this._dataSourceFile = path.join('source', 'data', sourceFileName);
 		this._dataSource = null;
 	}
 
