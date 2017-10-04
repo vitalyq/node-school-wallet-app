@@ -5,8 +5,7 @@
   "author": "",
   "scripts": {
     "build": "webpack && webpack --config webpack.config.server.js",
-    "start": "NODE_PATH=. node ./source/app.js",
-    "watch": "NODE_PATH=. nodemon --watch source ./source/app.js",
+    "start": "node public/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
