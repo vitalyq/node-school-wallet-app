@@ -7,9 +7,9 @@ const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser')();
 
 const React = require('react');
-const ReactDOMServer = require('react-dom/server');
+const { renderToString } = require('react-dom/server');
+const { extractCritical } = require('emotion-server');
 const { App } = require('source/client/components');
-const html = require('source/client/index.html');
 
 const getCardsController = require('./controllers/cards/get-cards');
 const createCardController = require('./controllers/cards/create');
@@ -31,8 +31,24 @@ router.param('id', (id, ctx, next) => next());
 
 
 router.get('/', (ctx) => {
-	ctx.body = html.replace('<div id="root"></div>',
-		`<div id="root">${ReactDOMServer.renderToString(<App />)}</div>`);
+	const reactHtml = renderToString(<App />);
+	const { html, ids, css } = extractCritical(reactHtml);
+
+	ctx.body = `
+	<html>
+		<head>
+			<meta charset="utf-8">
+			<link rel="shortcut icon" href="/favicon.ico">
+			<title>Hello, Node School App!</title>
+			<style>${css}</style>
+			<link rel="stylesheet" href="/styles.css">
+			<script>window.__STYLES__ = ${JSON.stringify(ids)};</script>
+		</head>
+		<body>
+			<div id="root">${html}</div>
+			<script src="/bundle.js"></script>
+		</body>
+	</html>;`
 });
 
 router.get('/cards/', getCardsController);

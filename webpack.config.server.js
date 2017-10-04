@@ -15,10 +15,6 @@ module.exports = {
 			{
 				test: /\.css$/,
 				loader: 'ignore-loader'
-			},
-			{
-				test: /\.html$/,
-				loader: 'html-loader'
 			}
 		]
 	},
