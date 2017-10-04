@@ -4,9 +4,8 @@
   "description": "Приложение школы Node.js «Кошелёк»",
   "author": "",
   "scripts": {
-    "build": "webpack",
-    "start": "NODE_PATH=. node ./source/app.js",
-    "watch": "NODE_PATH=. nodemon --watch source ./source/app.js",
+    "build": "webpack && webpack --config webpack.config.server.js",
+    "start": "node public/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,14 +17,15 @@
     "node": "^8.2"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.2.1",
     "koa-static": "^4.0.1",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   },
   "devDependencies": {
     "antd": "^2.12.8",
@@ -39,10 +39,13 @@
     "card-info": "git+https://github.com/iniel/card-info.git",
     "css-loader": "^0.28.7",
     "emotion": "^7.2.0",
+    "emotion-server": "^7.3.2",
     "eslint": "^4.7.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.3.0",
+    "extract-text-webpack-plugin": "^3.0.1",
+    "ignore-loader": "^0.1.2",
     "moment": "^2.18.1",
     "react-emotion": "^7.2.0",
     "style-loader": "^0.18.2",
